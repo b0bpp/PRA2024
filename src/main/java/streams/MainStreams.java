@@ -20,6 +20,7 @@ public class MainStreams {
         students.add(new Student("Arnold", 1L, 2L));
         students.add(new Student("John", 1L, 3L));
         students.add(new Student("Barrack", 2L, 1L));
+
         List<String> names = new ArrayList<>();
         for (Student student: students) {
             if (student.getName ().startsWith("A")) {
@@ -40,6 +41,9 @@ public class MainStreams {
         String[] stringArray = new String[]{"Streams", "can", "be", "created", "from", "arrays"};
 
         Arrays.stream(stringArray).forEach(System.out::println);
+
+        Stream<Student> whatIsIt = students.stream().filter(s -> s.getName().length() > 2);
+
     }
 
 }

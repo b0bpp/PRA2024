@@ -27,7 +27,7 @@ public class TaskTest {
         Human viktor = new Human("Viktor", 40);
         Human eva = new Human("Eva", 42);
         List<Human> collection = Arrays.asList(sara, eva, viktor);
-        assertThat(Task.getOldestPerson(collection), is(eva));
+        assertThat(Task.getOldestHuman(collection), is(eva));
     }
 
     @Test

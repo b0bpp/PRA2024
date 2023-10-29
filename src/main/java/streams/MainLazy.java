@@ -36,9 +36,10 @@ public class MainLazy {
                 }).limit(5)
                 .forEach(a -> System.out.println(a));
 
-        Stream.of("Sun", "Set", "Run", "Stream").filter(word -> {
-            System.out.println(word);
-            return word.startsWith("S");
-        }).limit(2).forEach(System.out::println);
+        Stream.of("Sun", "Set", "Run", "Stream").limit(2)
+                .filter(word -> {
+                    System.out.println(word);
+                    return word.startsWith("S");
+                }).sorted().forEach(System.out::println);
     }
 }

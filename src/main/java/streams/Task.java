@@ -3,8 +3,9 @@ package streams;
 import streams.model.Human;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.partitioningBy;
 
 // Code from https://github.com/vfarcic/java-8-exercises
 
@@ -23,8 +24,10 @@ public class Task {
     }
 
     public static List<String> toUpperCase(List<String> collection) {
-        // ToDo
-        return null;
+        List<String> result = collection.stream()
+                .map(o -> o.toUpperCase())
+                .collect(Collectors.toList());
+        return result;
     }
 
     public static List<String> transformOldJava(List<String> collection) {
@@ -38,41 +41,46 @@ public class Task {
     }
 
     public static List<String> transform(List<String> collection) {
-        // ToDo
-        return null;
+        List<String> result = collection.stream()
+                .filter(o -> o.length() < 4)
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
      * MEDIUM
      */
 
-    public static Map<String, Human> createMapOldJava(List<Human> collection) {
-        Map<String, Human> people = new HashMap<>();
+    public static Map<String,Human> createMapOldJava(List<Human> collection) {
+        Map<String,Human> people = new HashMap<>();
         for (Human element : collection) {
             people.put(element.getName(), element);
         }
         return people;
     }
 
-    public static Map<String, Human> createMap(List<Human> collection) {
-        // ToDo
-        return null;
+    public static Map<String,Human> createMap(List<Human> collection) {
+        Map<String, Human> result = collection.stream()
+                .collect(Collectors.toMap(p -> p.getName(), Function.identity()));
+        return result;
     }
 
 
-    public static Human getOldestPersonOldJava(List<Human> people) {
+    public static Human getOldestHumanOldJava(List<Human> people) {
         Human oldestHuman = new Human("", 0);
-        for (Human human : people) {
-            if (human.getAge() > oldestHuman.getAge()) {
-                oldestHuman = human;
+        for (Human person : people) {
+            if (person.getAge() > oldestHuman.getAge()) {
+                oldestHuman = person;
             }
         }
         return oldestHuman;
     }
 
-    public static Human getOldestPerson(List<Human> people) {
-        // ToDo
-        return null;
+    public static Human getOldestHuman(List<Human> people) {
+        Human result = people.stream()
+                .sorted(Comparator.comparing(Human::getAge).reversed())
+                .findFirst().get();
+        return result;
     }
 
     /**
@@ -84,16 +92,17 @@ public class Task {
         Map<Boolean, List<Human>> map = new HashMap<>();
         map.put(true, new ArrayList<>());
         map.put(false, new ArrayList<>());
-        for (Human human : people) {
-            map.get(human.getAge() >= 18).add(human);
+        for (Human person : people) {
+            map.get(person.getAge() >= 18).add(person);
         }
         return map;
     }
 
     // use partitionBy
     public static Map<Boolean, List<Human>> partitionAdults(List<Human> people) {
-        // ToDo
-        return null;
+        Map<Boolean, List<Human>> result = people.stream()
+                .collect(Collectors.partitioningBy(p -> p.getAge() > 18));
+        return result;
     }
 
     public static List<String> transformListOldJava(List<List<String>> collection) {
@@ -108,7 +117,9 @@ public class Task {
 
     //use flatMap
     public static List<String> transformList(List<List<String>> collection) {
-        // ToDo
-        return null;
+        List<String> result = collection.stream()
+                .flatMap(a -> a.stream())
+                .collect(Collectors.toList());
+        return result;
     }
 }

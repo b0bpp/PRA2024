@@ -38,7 +38,7 @@ public class MainFluentApi {
         adam.processFriendsInPlace(friends -> {
             friends.clear();
         }).sayHelloToFriends();
-
+        // choose best friend and print it
         Function<List<Person>, Person> chooseMyFirstFriendEver = friends -> friends.get(0);
         adam.addFriend(carol).addFriend(john)
                 .chooseBestFriend(chooseMyFirstFriendEver)
