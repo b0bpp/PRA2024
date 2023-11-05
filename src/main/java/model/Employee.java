@@ -1,18 +1,25 @@
 package model;
 
+import com.fasterxml.jackson.annotation.*;
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class,
+        property="refId", scope=Employee.class)
 public class Employee {
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
+    DateTime birthDate;
     private int id;
 
     private String firstName;
 
     private String lastName;
 
+    @JsonProperty(value = "wynagrodzenie")
     private int salary;
 
+    @JsonIgnore
     private int pesel;
 
     Address address;
@@ -85,5 +92,13 @@ public class Employee {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public DateTime getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(DateTime birthDate) {
+        this.birthDate = birthDate;
     }
 }
