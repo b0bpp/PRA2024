@@ -1,6 +1,10 @@
 package hibernate.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -67,9 +71,24 @@ public class Employee {
         this.pesel = pesel;
     }
 
+    @ElementCollection
+    private List<String> phones = new ArrayList<>();
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="address_id")
+    Address address;
+
     public static Employee copyEmployee(Employee emp) {
         Employee person = new Employee();
-        //person.setAddress(emp.getAddress());
+        person.setAddress(emp.getAddress());
         person.setLastName(emp.getLastName());
         person.setFirstName(emp.getFirstName() + new Random().nextInt());
         person.setPesel(new Random().nextInt());
