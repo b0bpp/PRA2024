@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
+import spring.services.Service;
+import spring.services.ServiceImpl;
 
 @SpringBootApplication(exclude = {HibernateJpaAutoConfiguration.class })
 public class MainApp {
@@ -21,6 +23,15 @@ public class MainApp {
         System.out.println(config.isEnabled());
         System.out.println(config.getEnvironment());
         System.out.println(config.getServers().length);
+
+
+        Printer printer = context.getBean(Printer.class);
+        printer.sendMessage();
+        helloWorld.setMessage("Nowa");
+        printer.sendMessage();
+
+        Service service  = (Service) context.getBean(ServiceImpl.class);
+        service.print();
 
     }
 }
