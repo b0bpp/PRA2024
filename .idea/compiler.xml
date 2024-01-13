@@ -10,8 +10,6 @@
         <module name="PracowniaMain" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17">
-      <module name="PRA2024" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>
